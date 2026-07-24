@@ -1,17 +1,18 @@
 import { useEffect, useRef } from 'react'
 
-type Particle = {
+type Dot = {
   x: number
   y: number
-  radius: number
-  velocityX: number
-  velocityY: number
-  alpha: number
 }
 
-const PARTICLE_DENSITY = 18_000
-const MAX_PARTICLES = 90
-const CONNECTION_DISTANCE = 120
+const BACKGROUND_COLOR = '#130F13'
+const DOT_COLOR = '#FFFFFF'
+const DOT_GAP = 34
+const DOT_SIZE = 2
+const DOT_IDLE_ALPHA = 0.18
+const DOT_ACTIVE_ALPHA = 0.78
+const CURSOR_RADIUS = 170
+const CURSOR_PUSH = 34
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -24,20 +25,25 @@ export default function ParticleBackground() {
     if (!context) return
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let particles: Particle[] = []
+    let dots: Dot[] = []
     let animationFrame = 0
     let width = 0
     let height = 0
+    const pointer = {
+      x: -10_000,
+      y: -10_000,
+      active: false,
+    }
 
-    const createParticles = () => {
-      const count = Math.min(MAX_PARTICLES, Math.max(28, Math.round((width * height) / PARTICLE_DENSITY)))
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.25 + 0.45,
-        velocityX: (Math.random() - 0.5) * 0.16,
-        velocityY: (Math.random() - 0.5) * 0.16,
-        alpha: Math.random() * 0.34 + 0.18,
+    const createDots = () => {
+      const columns = Math.ceil(width / DOT_GAP) + 2
+      const rows = Math.ceil(height / DOT_GAP) + 2
+      const offsetX = (width - (columns - 1) * DOT_GAP) / 2
+      const offsetY = (height - (rows - 1) * DOT_GAP) / 2
+
+      dots = Array.from({ length: columns * rows }, (_, index) => ({
+        x: offsetX + (index % columns) * DOT_GAP,
+        y: offsetY + Math.floor(index / columns) * DOT_GAP,
       }))
     }
 
@@ -45,53 +51,52 @@ export default function ParticleBackground() {
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
       width = window.innerWidth
       height = window.innerHeight
+      pointer.x = -10_000
+      pointer.y = -10_000
+      pointer.active = false
       canvas.width = Math.round(width * pixelRatio)
       canvas.height = Math.round(height * pixelRatio)
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
-      createParticles()
-      if (reducedMotion.matches) draw(false)
+      createDots()
+      if (reducedMotion.matches) draw()
     }
 
-    const draw = (move = true) => {
-      context.clearRect(0, 0, width, height)
+    const drawBackground = () => {
+      context.fillStyle = BACKGROUND_COLOR
+      context.fillRect(0, 0, width, height)
+    }
 
-      for (let first = 0; first < particles.length; first += 1) {
-        const particle = particles[first]
-
-        if (move) {
-          particle.x += particle.velocityX
-          particle.y += particle.velocityY
-          if (particle.x < -4) particle.x = width + 4
-          if (particle.x > width + 4) particle.x = -4
-          if (particle.y < -4) particle.y = height + 4
-          if (particle.y > height + 4) particle.y = -4
-        }
+    const drawDots = () => {
+      for (const dot of dots) {
+        const dx = dot.x - pointer.x
+        const dy = dot.y - pointer.y
+        const distance = pointer.active ? Math.hypot(dx, dy) : Number.POSITIVE_INFINITY
+        const influence = Math.max(0, 1 - distance / CURSOR_RADIUS)
+        const directionX = distance > 0 ? dx / distance : 0
+        const directionY = distance > 0 ? dy / distance : 0
+        const push = influence * influence * CURSOR_PUSH
+        const x = dot.x + directionX * push
+        const y = dot.y + directionY * push
+        const alpha = DOT_IDLE_ALPHA + (DOT_ACTIVE_ALPHA - DOT_IDLE_ALPHA) * influence
 
         context.beginPath()
-        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-        context.fillStyle = `rgba(234, 234, 234, ${particle.alpha})`
+        context.arc(x, y, DOT_SIZE, 0, Math.PI * 2)
+        context.globalAlpha = alpha
+        context.fillStyle = DOT_COLOR
         context.fill()
-
-        for (let second = first + 1; second < particles.length; second += 1) {
-          const neighbor = particles[second]
-          const distance = Math.hypot(particle.x - neighbor.x, particle.y - neighbor.y)
-          if (distance >= CONNECTION_DISTANCE) continue
-
-          const opacity = (1 - distance / CONNECTION_DISTANCE) * 0.09
-          context.beginPath()
-          context.moveTo(particle.x, particle.y)
-          context.lineTo(neighbor.x, neighbor.y)
-          context.strokeStyle = `rgba(234, 234, 234, ${opacity})`
-          context.lineWidth = 0.5
-          context.stroke()
-        }
       }
+      context.globalAlpha = 1
+    }
+
+    const draw = () => {
+      drawBackground()
+      drawDots()
     }
 
     const animate = () => {
-      draw(true)
+      draw()
       animationFrame = window.requestAnimationFrame(animate)
     }
 
@@ -101,13 +106,29 @@ export default function ParticleBackground() {
       if (!reducedMotion.matches) animate()
     }
 
+    const handlePointerMove = (event: PointerEvent) => {
+      pointer.x = event.clientX
+      pointer.y = event.clientY
+      pointer.active = true
+    }
+
+    const handlePointerLeave = () => {
+      pointer.x = -10_000
+      pointer.y = -10_000
+      pointer.active = false
+    }
+
     restart()
     window.addEventListener('resize', restart)
+    window.addEventListener('pointermove', handlePointerMove, { passive: true })
+    window.addEventListener('pointerleave', handlePointerLeave)
     reducedMotion.addEventListener('change', restart)
 
     return () => {
       window.cancelAnimationFrame(animationFrame)
       window.removeEventListener('resize', restart)
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerleave', handlePointerLeave)
       reducedMotion.removeEventListener('change', restart)
     }
   }, [])
