@@ -1,3 +1,5 @@
+import ParticleBackground from './ParticleBackground'
+
 const FIGMA_ASSET_BASE_URL = '/assets/figma/'
 const asset = (fileName: string) => `${FIGMA_ASSET_BASE_URL}${fileName}`
 
@@ -45,6 +47,7 @@ function SectionTitle({ imageSrc, alt }: { imageSrc: string; alt: string }) {
 function App() {
   return (
     <div className="site-shell">
+      <ParticleBackground />
       <a className="skip-link" href="#main">本文へ移動</a>
       <header className="topbar">
         <a className="wordmark" href="#top" aria-label="ページ上部へ"><img src={assets.brandMark} alt="Toma" /></a>
