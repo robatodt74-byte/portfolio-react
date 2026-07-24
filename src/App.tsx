@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import ParticleBackground from './ParticleBackground'
 
 const FIGMA_ASSET_BASE_URL = '/assets/figma/'
@@ -5,6 +6,10 @@ const asset = (fileName: string) => `${FIGMA_ASSET_BASE_URL}${fileName}`
 
 const assets = {
   heroStrip: asset('imgImage17'),
+  dotGuitar: asset('imgImage14'),
+  dotBike: asset('imgImage15'),
+  dotMusic: asset('imgImage16'),
+  dotSpark: asset('imgImage18'),
   portrait: asset('imgImage12'),
   portraitScribble: asset('imgImage13'),
   toolsDecoration: asset('imgImage7'),
@@ -44,6 +49,14 @@ function SectionTitle({ imageSrc, alt }: { imageSrc: string; alt: string }) {
   return <header className="section-title"><img src={imageSrc} alt={alt} /></header>
 }
 
+function DotArt({ className, imageSrc }: { className: string; imageSrc: string }) {
+  return (
+    <span className={`dot-art-wrap ${className}`} style={{ '--dot-src': `url(${imageSrc})` } as CSSProperties} aria-hidden="true">
+      <img className="dot-art" src={imageSrc} alt="" />
+    </span>
+  )
+}
+
 function App() {
   return (
     <div className="site-shell">
@@ -60,12 +73,14 @@ function App() {
 
       <main id="main">
         <section className="hero" id="top" aria-labelledby="hero-title">
+          <DotArt className="dot-art-hero dot-art-point top-slice" imageSrc={assets.dotSpark} />
           <img className="hero-strip" src={assets.heroStrip} alt="" />
           <h1 id="hero-title"><span>PORTFOLIO</span></h1>
           <a className="scroll-cue" href="#about">SCROLL TO EXPLORE <i>↓</i></a>
         </section>
 
         <section className="about section" id="about">
+          <DotArt className="dot-art-about dot-art-point side-slice" imageSrc={assets.dotBike} />
           <SectionTitle imageSrc={assets.headingAbout} alt="ABOUT" />
           <div className="about-grid">
             <div className="portrait-stage">
@@ -90,17 +105,20 @@ function App() {
         </section>
 
         <section className="toolkit section" id="tools">
+          <DotArt className="dot-art-tools dot-art-point lower-slice" imageSrc={assets.dotMusic} />
           <img className="tool-art" src={assets.toolsDecoration} alt="" />
           <SectionTitle imageSrc={assets.headingTools} alt="TOOLS" />
           <div className="tool-list">{tools.map(({ iconSrc, name, description }) => <article className="tool" key={name}><img src={iconSrc} alt="" /><div><h3>{name}</h3><p>{description}</p></div><span>↗</span></article>)}</div>
         </section>
 
         <section className="works section" id="works">
+          <DotArt className="dot-art-works dot-art-point top-slice" imageSrc={assets.dotGuitar} />
           <SectionTitle imageSrc={assets.headingWorks} alt="WORKS" />
           <div className="works-grid" aria-label="作品掲載予定枠">{[1, 2, 3, 4].map((number) => <div className="work-frame" key={number} aria-label={`作品 ${number} 掲載予定`} />)}</div>
         </section>
 
         <section className="contact section" id="contact">
+          <DotArt className="dot-art-contact dot-art-point side-slice" imageSrc={assets.dotSpark} />
           <img className="contact-art left" src={assets.contactLeft} alt="" /><img className="contact-art right" src={assets.contactRight} alt="" />
           <SectionTitle imageSrc={assets.headingContact} alt="CONTACT" />
           <a className="mail" href="mailto:kmc2406@kamiyama.ac.jp">kmc2406@kamiyama.ac.jp <span>↗</span></a>

@@ -7,12 +7,12 @@ type Dot = {
 
 const BACKGROUND_COLOR = '#130F13'
 const DOT_COLOR = '#FFFFFF'
-const DOT_GAP = 34
-const DOT_SIZE = 2
-const DOT_IDLE_ALPHA = 0.18
-const DOT_ACTIVE_ALPHA = 0.78
+const DOT_GAP = 42
+const DOT_SIZE = 1.35
+const DOT_IDLE_ALPHA = 0.025
+const DOT_ACTIVE_ALPHA = 0.32
 const CURSOR_RADIUS = 170
-const CURSOR_PUSH = 34
+const CURSOR_PUSH = 22
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
