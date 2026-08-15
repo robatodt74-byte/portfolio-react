@@ -1,24 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap');
 
 :root {
-  color-scheme: dark;
-  --bg: #07111e;
-  --bg-soft: #0d1b2b;
-  --panel: rgba(12, 22, 35, 0.82);
-  --panel-border: rgba(168, 198, 255, 0.16);
-  --line: rgba(222, 235, 255, 0.12);
-  --text: #edf4ff;
-  --muted: rgba(237, 244, 255, 0.72);
-  --muted-strong: rgba(237, 244, 255, 0.9);
-  --accent: #f8b26a;
-  --accent-2: #54d6c6;
-  --accent-3: #9db8ff;
-  --shadow: 0 32px 80px rgba(1, 8, 17, 0.48);
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --bg-soft: #eef2f7;
+  --panel: #ffffff;
+  --panel-border: rgba(15, 23, 42, 0.08);
+  --line: rgba(15, 23, 42, 0.1);
+  --text: #122033;
+  --muted: rgba(18, 32, 51, 0.68);
+  --muted-strong: rgba(18, 32, 51, 0.88);
+  --accent: #ea8b2f;
+  --accent-2: #0f8b7e;
+  --accent-3: #6e7efc;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
   font-family: 'Space Grotesk', system-ui, sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(84, 214, 198, 0.2), transparent 32%),
-    radial-gradient(circle at 75% 15%, rgba(248, 178, 106, 0.18), transparent 24%),
-    linear-gradient(180deg, #050b13 0%, #09111d 52%, #060b12 100%);
+  background: var(--bg);
   color: var(--text);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -38,10 +35,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at 15% 10%, rgba(84, 214, 198, 0.08), transparent 28%),
-    radial-gradient(circle at 90% 10%, rgba(248, 178, 106, 0.08), transparent 28%),
-    linear-gradient(180deg, #050b13 0%, #09111d 52%, #060b12 100%);
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -81,8 +75,8 @@ a {
   position: fixed;
   inset: auto;
   pointer-events: none;
-  filter: blur(60px);
-  opacity: 0.5;
+  filter: blur(42px);
+  opacity: 0.25;
   z-index: 0;
 }
 
@@ -91,7 +85,7 @@ a {
   top: 7vh;
   width: 26vw;
   height: 26vw;
-  background: rgba(84, 214, 198, 0.15);
+  background: rgba(15, 139, 126, 0.12);
 }
 
 .ambient-b {
@@ -99,7 +93,7 @@ a {
   top: 16vh;
   width: 32vw;
   height: 32vw;
-  background: rgba(248, 178, 106, 0.14);
+  background: rgba(234, 139, 47, 0.1);
 }
 
 .header,
@@ -125,14 +119,6 @@ a {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent-2);
-}
-
-.header h1 {
-  margin: 0;
-  max-width: 13ch;
-  font-size: clamp(2.1rem, 5vw, 4.8rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
 }
 
 .header-actions {
@@ -167,7 +153,7 @@ a {
   padding: 12px 16px;
   border-color: var(--panel-border);
   border-radius: 999px;
-  background: rgba(8, 17, 28, 0.7);
+  background: #ffffff;
   color: var(--muted);
   box-shadow: var(--shadow);
   font-family: 'IBM Plex Mono', monospace;
@@ -179,8 +165,8 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: 0 0 0 5px rgba(84, 214, 198, 0.12);
+  background: var(--accent-2);
+  box-shadow: 0 0 0 5px rgba(15, 139, 126, 0.12);
 }
 
 .ghost-button,
@@ -194,7 +180,7 @@ a {
 .ghost-button,
 .secondary-button,
 .text-link {
-  background: rgba(9, 18, 29, 0.65);
+  background: #ffffff;
   color: var(--text);
   border-color: var(--panel-border);
 }
@@ -206,9 +192,9 @@ a {
 }
 
 .primary-button {
-  background: linear-gradient(135deg, rgba(248, 178, 106, 0.95), rgba(84, 214, 198, 0.9));
-  color: #08101a;
-  box-shadow: 0 16px 40px rgba(84, 214, 198, 0.22);
+  background: var(--accent-2);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(15, 139, 126, 0.18);
 }
 
 .ghost-button:hover,
@@ -240,11 +226,8 @@ a {
   min-width: 0;
   border: 1px solid var(--panel-border);
   border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 22%),
-    var(--panel);
+  background: var(--panel);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
 }
 
 .capture-panel,
@@ -307,7 +290,7 @@ a {
   padding: 8px 12px;
   border-radius: 999px;
   border-color: var(--panel-border);
-  background: rgba(8, 16, 26, 0.7);
+  background: #f8fafc;
   color: var(--muted);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.74rem;
@@ -341,7 +324,7 @@ a {
   width: 100%;
   border: 1px solid rgba(188, 208, 243, 0.14);
   border-radius: 18px;
-  background: rgba(5, 11, 19, 0.6);
+  background: #f8fafc;
   color: var(--text);
   padding: 13px 14px;
   outline: none;
@@ -376,9 +359,7 @@ a {
   padding: 18px;
   border: 1px dashed rgba(168, 198, 255, 0.28);
   border-radius: 24px;
-  background:
-    linear-gradient(135deg, rgba(248, 178, 106, 0.08), rgba(84, 214, 198, 0.08)),
-    rgba(7, 13, 22, 0.72);
+  background: #f8fafc;
 }
 
 .image-dropzone input {
@@ -432,7 +413,7 @@ a {
 .stat-card {
   padding: 16px;
   border-radius: 22px;
-  background: rgba(5, 11, 19, 0.52);
+  background: #f8fafc;
   border: 1px solid rgba(188, 208, 243, 0.12);
 }
 
@@ -484,13 +465,13 @@ a {
   border-radius: 999px;
   padding: 10px 14px;
   border-color: rgba(188, 208, 243, 0.14);
-  background: rgba(7, 13, 22, 0.66);
+  background: #ffffff;
   color: var(--muted-strong);
 }
 
 .tab.active {
-  background: linear-gradient(135deg, rgba(248, 178, 106, 0.22), rgba(84, 214, 198, 0.2));
-  border-color: rgba(84, 214, 198, 0.38);
+  background: rgba(15, 139, 126, 0.08);
+  border-color: rgba(15, 139, 126, 0.28);
   color: var(--text);
 }
 
@@ -505,26 +486,24 @@ a {
   width: 100%;
   min-height: 360px;
   border-radius: 26px;
-  background:
-    radial-gradient(circle at center, rgba(84, 214, 198, 0.12), transparent 26%),
-    linear-gradient(180deg, rgba(8, 16, 26, 0.84), rgba(5, 11, 19, 0.76));
+  background: #f8fafc;
   border: 1px solid rgba(188, 208, 243, 0.12);
 }
 
 .graph-line {
-  stroke: rgba(237, 244, 255, 0.18);
+  stroke: rgba(18, 32, 51, 0.16);
   stroke-width: 0.6;
   stroke-linecap: round;
 }
 
 .graph-node {
-  fill: rgba(255, 255, 255, 0.06);
-  stroke: rgba(237, 244, 255, 0.28);
+  fill: rgba(15, 139, 126, 0.08);
+  stroke: rgba(15, 139, 126, 0.28);
   stroke-width: 0.7;
 }
 
 .graph-center {
-  stroke: rgba(255, 255, 255, 0.18);
+  stroke: rgba(15, 139, 126, 0.22);
   stroke-width: 0.5;
 }
 
@@ -569,9 +548,7 @@ a {
 .business-card {
   padding: 16px;
   border-radius: 24px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 18%),
-    rgba(6, 12, 20, 0.68);
+  background: #ffffff;
   border: 1px solid rgba(188, 208, 243, 0.1);
   cursor: pointer;
   transition:
@@ -583,8 +560,8 @@ a {
 .business-card:hover,
 .business-card.selected {
   transform: translateY(-2px);
-  border-color: rgba(84, 214, 198, 0.34);
-  background: rgba(9, 18, 29, 0.85);
+  border-color: rgba(15, 139, 126, 0.34);
+  background: #f8fafc;
 }
 
 .card-topline {
@@ -608,18 +585,18 @@ a {
 }
 
 .stage-hot {
-  background: rgba(248, 178, 106, 0.16);
-  border-color: rgba(248, 178, 106, 0.28);
+  background: rgba(234, 139, 47, 0.12);
+  border-color: rgba(234, 139, 47, 0.24);
 }
 
 .stage-warm {
-  background: rgba(84, 214, 198, 0.14);
-  border-color: rgba(84, 214, 198, 0.28);
+  background: rgba(15, 139, 126, 0.1);
+  border-color: rgba(15, 139, 126, 0.22);
 }
 
 .stage-watch {
-  background: rgba(157, 184, 255, 0.14);
-  border-color: rgba(157, 184, 255, 0.28);
+  background: rgba(110, 126, 252, 0.1);
+  border-color: rgba(110, 126, 252, 0.22);
 }
 
 .business-card h3 {
@@ -682,7 +659,7 @@ a {
 .suggestion-list {
   padding: 16px;
   border-radius: 24px;
-  background: rgba(5, 11, 19, 0.58);
+  background: #ffffff;
   border: 1px solid rgba(188, 208, 243, 0.1);
 }
 
@@ -708,7 +685,7 @@ a {
 .profile-row {
   padding: 12px 14px;
   border-radius: 18px;
-  background: rgba(5, 11, 19, 0.52);
+  background: #f8fafc;
   border: 1px solid rgba(188, 208, 243, 0.1);
 }
 
@@ -744,7 +721,7 @@ a {
 .relation-item {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #f8fafc;
   border: 1px solid rgba(188, 208, 243, 0.08);
 }
 
@@ -758,7 +735,7 @@ a {
   gap: 8px;
   padding: 12px 14px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #f8fafc;
   border: 1px solid rgba(188, 208, 243, 0.08);
 }
 
@@ -779,7 +756,7 @@ a {
 .empty-state {
   padding: 22px 18px;
   border-radius: 24px;
-  background: rgba(5, 11, 19, 0.58);
+  background: #ffffff;
   border: 1px dashed rgba(188, 208, 243, 0.15);
 }
 
@@ -795,7 +772,7 @@ a {
   max-width: 1600px;
   margin: 18px auto 0;
   padding: 0 4px;
-  color: rgba(237, 244, 255, 0.54);
+  color: rgba(18, 32, 51, 0.54);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.74rem;
   text-transform: uppercase;
@@ -867,7 +844,7 @@ a {
     width: 100%;
   }
 
-  .graph {
+.graph {
     min-height: 280px;
   }
 

@@ -429,7 +429,6 @@ function App() {
       <header className="header">
         <div>
           <p className="eyebrow">Business Card Atlas</p>
-          <h1>名刺をスキャンして、保存して、つながりを見える化する。</h1>
         </div>
         <div className="header-actions">
           <div className="sync-pill">
