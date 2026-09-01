@@ -1,13 +1,25 @@
-# Ueda Toma Portfolio
+# Business Card Atlas
 
-Figma node `1:2` をもとにした React + TypeScript + Vite 実装です。
+名刺をスキャンして保存し、一覧ダッシュボードと関係マップで管理するWeb MVPです。
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Source
+## Features
 
-- Figma: https://www.figma.com/design/vr2ipbzlwlM9NnMKB1BaAF/portfolio?node-id=1-2
-- Linear project: https://linear.app/tom108/project/figma-portfolio-react-e61aa07d9fb1
+- 名刺の取り込みとローカル保存
+- タグと会社キーワードによる分類
+- Obsidian風の関係グラフ
+- 将来の紹介候補を考えるマッチング下地
+
+## Planning
+
+- Linear project: https://linear.app/tom108/project/business-card-atlas-fbce5aa78f8f
+- Issue: TOM-97, TOM-98, TOM-99, TOM-100
+
+## Notes
+
+- 取り込みはMVPでは画像アップロードと手入力を中心にしている
+- 将来はOCR、バックエンド同期、モバイルアプリ化を追加しやすい構成にしている
