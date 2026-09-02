@@ -1,5 +1,7 @@
 import CursorDots from './CursorDots'
 
+// AIはインタラクション実装の補助に使用し、構成・文章・最終調整は自分で確認しました。
+
 type Project = {
   number: string
   title: string
