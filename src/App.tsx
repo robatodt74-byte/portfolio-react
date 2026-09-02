@@ -1,3 +1,5 @@
+import CursorDots from './CursorDots'
+
 type Project = {
   number: string
   title: string
@@ -15,6 +17,7 @@ const services = ['FRONTEND DEVELOPMENT', 'API INTEGRATION', 'INTERACTIVE MOTION
 function App() {
   return (
     <div className="site-shell">
+      <CursorDots />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Toma Ueda home">[ TU ]</a>
         <span className="header-title">PERSONAL DEVELOPMENT PORTFOLIO</span>
